@@ -144,6 +144,101 @@
 </nav>
       <div class="body-wrap">
   
+    <article id="post-java内存泄漏分析" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a  href="/2017/02/07/java内存泄漏分析/" class="article-date">
+      <time datetime="2017-02-07T10:56:42.000Z" itemprop="datePublished">2017-02-07</time>
+</a>
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a  class="article-title" href="/2017/02/07/java内存泄漏分析/">java内存泄漏分析</a>
+    </h1>
+  
+
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <h2 id="内存泄漏"><a href="#内存泄漏" class="headerlink" title="内存泄漏"></a><strong><em>内存泄漏</em></strong></h2><blockquote>
+<p>内存不在GC的掌握之内了</p>
+</blockquote>
+<h2 id="了解几个问题"><a href="#了解几个问题" class="headerlink" title="了解几个问题"></a>了解几个问题</h2><pre><code>&gt;***垃圾回收机制 GC***：某对象不再有任何的引用的时候才会被回收
+&gt;
+&gt;###GC回收机制的原理(可以作为GC Root引用点的是)：
+&gt;
+&gt;&gt;1. JavaStack 中引用的对象
+&gt;&gt;2. 方法区中静态引用指向的对象
+&gt;&gt;3. 方法去中常量引用指向的对象
+&gt;&gt;4. native方法中JNI引用的对象
+&gt;&gt;5. Thread—&quot;活着的&quot;线程
+&gt;
+&gt;###怎么判断一个对象是垃圾对象？
+&gt;
+&gt;&gt; 这是一个主观的判断
+&gt;
+&gt;### 内存泄漏多了容易导致oom,app会崩溃
+</code></pre><h2 id="确定我们项目中或者几个类里面是否存在内存泄漏"><a href="#确定我们项目中或者几个类里面是否存在内存泄漏" class="headerlink" title="确定我们项目中或者几个类里面是否存在内存泄漏"></a>确定我们项目中或者几个类里面是否存在内存泄漏</h2><blockquote>
+<p>android 工程可以使用Android studio 中的android moitor——&gt;System information——&gt;MemoryUsage 查看Ojbects里面是否有没有被释放的Views或者Activity的数量是否为0.</p>
+<p>命令行模式：adb shell dumpsys meminfo 包名 -d</p>
+</blockquote>
+<h2 id="确定内存泄漏的大致范围"><a href="#确定内存泄漏的大致范围" class="headerlink" title="确定内存泄漏的大致范围"></a>确定内存泄漏的大致范围</h2><blockquote>
+<p>AndroidStudio方式：看Memory moitor 工具。</p>
+<p>检查一个一个的动作，（比如Activity跳转）</p>
+<p>反复多次执行某一个操作，不断地通过这个工具查看内存的大概变化情况。前后两个内存变化增加了不少</p>
+</blockquote>
+<h2 id="更仔细的查看泄漏的位置"><a href="#更仔细的查看泄漏的位置" class="headerlink" title="更仔细的查看泄漏的位置"></a>更仔细的查看泄漏的位置</h2><blockquote>
+<p>在As里里面使用Heap SnapShot 工具（堆栈快照）</p>
+<p>生成hprof 文件</p>
+</blockquote>
+<h2 id="使用更高级的分析工具来更具体的找到这个泄漏的位置"><a href="#使用更高级的分析工具来更具体的找到这个泄漏的位置" class="headerlink" title="使用更高级的分析工具来更具体的找到这个泄漏的位置"></a>使用更高级的分析工具来更具体的找到这个泄漏的位置</h2><blockquote>
+<ol>
+<li>导出hprof文件</li>
+<li>下载mat软件：memoryAnalyzer.exe 或者插件</li>
+<li>正常与异常进行对比，发现可疑的对象。</li>
+</ol>
+</blockquote>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+
+      
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+
+
+  
     <article id="post-一分钟学会markdown" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
