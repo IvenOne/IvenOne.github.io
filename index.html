@@ -176,22 +176,24 @@
         <h2 id="内存泄漏"><a href="#内存泄漏" class="headerlink" title="内存泄漏"></a><strong><em>内存泄漏</em></strong></h2><blockquote>
 <p>内存不在GC的掌握之内了</p>
 </blockquote>
-<h2 id="了解几个问题"><a href="#了解几个问题" class="headerlink" title="了解几个问题"></a>了解几个问题</h2><pre><code>&gt;***垃圾回收机制 GC***：某对象不再有任何的引用的时候才会被回收
-&gt;
-&gt;###GC回收机制的原理(可以作为GC Root引用点的是)：
-&gt;
-&gt;&gt;1. JavaStack 中引用的对象
-&gt;&gt;2. 方法区中静态引用指向的对象
-&gt;&gt;3. 方法去中常量引用指向的对象
-&gt;&gt;4. native方法中JNI引用的对象
-&gt;&gt;5. Thread—&quot;活着的&quot;线程
-&gt;
-&gt;###怎么判断一个对象是垃圾对象？
-&gt;
-&gt;&gt; 这是一个主观的判断
-&gt;
-&gt;### 内存泄漏多了容易导致oom,app会崩溃
-</code></pre><h2 id="确定我们项目中或者几个类里面是否存在内存泄漏"><a href="#确定我们项目中或者几个类里面是否存在内存泄漏" class="headerlink" title="确定我们项目中或者几个类里面是否存在内存泄漏"></a>确定我们项目中或者几个类里面是否存在内存泄漏</h2><blockquote>
+<h2 id="了解几个问题"><a href="#了解几个问题" class="headerlink" title="了解几个问题"></a>了解几个问题</h2><blockquote>
+<p><strong><em>垃圾回收机制 GC</em></strong>：某对象不再有任何的引用的时候才会被回收</p>
+<p>###GC回收机制的原理(可以作为GC Root引用点的是)：</p>
+<blockquote>
+<ol>
+<li>JavaStack 中引用的对象</li>
+<li>方法区中静态引用指向的对象</li>
+<li>方法去中常量引用指向的对象</li>
+<li>native方法中JNI引用的对象</li>
+<li>Thread—“活着的”线程</li>
+</ol>
+</blockquote>
+<p>###怎么判断一个对象是垃圾对象？</p>
+<blockquote>
+<p>这是一个主观的判断</p>
+</blockquote>
+<h3 id="内存泄漏多了容易导致oom-app会崩溃"><a href="#内存泄漏多了容易导致oom-app会崩溃" class="headerlink" title="内存泄漏多了容易导致oom,app会崩溃"></a>内存泄漏多了容易导致oom,app会崩溃</h3></blockquote>
+<h2 id="确定我们项目中或者几个类里面是否存在内存泄漏"><a href="#确定我们项目中或者几个类里面是否存在内存泄漏" class="headerlink" title="确定我们项目中或者几个类里面是否存在内存泄漏"></a>确定我们项目中或者几个类里面是否存在内存泄漏</h2><blockquote>
 <p>android 工程可以使用Android studio 中的android moitor——&gt;System information——&gt;MemoryUsage 查看Ojbects里面是否有没有被释放的Views或者Activity的数量是否为0.</p>
 <p>命令行模式：adb shell dumpsys meminfo 包名 -d</p>
 </blockquote>
