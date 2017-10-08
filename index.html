@@ -174,7 +174,7 @@
       
           
         <p>技术解决方案：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div></pre></td><td class="code"><pre><div class="line">#include &lt;jni.h&gt;</div><div class="line">#。。。。。。。</div><div class="line"></div><div class="line">const char* data = &quot;data/data/包名&quot;;</div><div class="line"></div><div class="line">pid_t pid = fork();</div><div class="line">if(pid &lt; 0)&#123;&#125;</div><div class="line">else if(pid &gt; 0)&#123;&#125;</div><div class="line">else if(pid == 0)&#123;</div><div class="line">  LOG(&quot;开启子进程&quot;);</div><div class="line">  int filerStruct = inotify_init();</div><div class="line">  if(filerStruct &lt; 0)&#123;</div><div class="line">    LOG(&quot;监听失败&quot;);</div><div class="line">    exit(0);</div><div class="line">  &#125;</div><div class="line">  //监听哪个文件</div><div class="line">  int watchDescripter = inotify_add_watch(filerStruct,data,IN_DELETE);</div><div class="line">  if(watchDescripter &lt; 0)&#123;</div><div class="line">    LOG(&quot;监听文件失败&quot;);</div><div class="line">    exit(0);</div><div class="line">  &#125;</div><div class="line">  </div><div class="line">  void *p_buf = malloc(sizeof(struct inotify_event));</div><div class="line">  </div><div class="line">  //阻塞式 函数 app</div><div class="line"> size_t readBytes =  read(filerStruct,p_buf,sizeof(struct inotify_event));</div><div class="line"> //释放内存</div><div class="line"> free(p_buf);</div><div class="line"> //app 被干掉了</div><div class="line"> inotify_rm_watch(filerStruct,IN_DELETE);</div><div class="line"> </div><div class="line"> //跳转网页  4.1多用户  am命令 跳转网页 pm命令需要root权限</div><div class="line"> if(sdk &gt; 17)&#123;</div><div class="line"> // -a action -d </div><div class="line">   execlp(&quot;am&quot;,&quot;am&quot;,&quot;start&quot;,&quot;--user&quot;,&quot;0&quot;,&quot;-a&quot;,&quot;android.intent.action.VIEW&quot;,&quot;-d&quot;,&quot;http://shouji.360.cn/web/uninstall/unistall.html&quot;,(char *)NULL);</div><div class="line"> &#125;else&#123;</div><div class="line">      execlp(&quot;am&quot;,&quot;am&quot;,&quot;start&quot;,&quot;--user&quot;,&quot;0&quot;,&quot;-a&quot;,&quot;android.intent.action.VIEW&quot;,&quot;-d&quot;,&quot;http://shouji.360.cn/web/uninstall/unistall.html&quot;,(char *)NULL);</div><div class="line"> &#125;</div><div class="line">  </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div></pre></td><td class="code"><pre><div class="line">#include &lt;jni.h&gt;</div><div class="line">#include &lt;string&gt;</div><div class="line"></div><div class="line">#include &lt;stdlib.h&gt;</div><div class="line">#include &lt;sys/inotify.h&gt;</div><div class="line">#include &lt;unistd.h&gt;</div><div class="line"></div><div class="line">extern &quot;C&quot;</div><div class="line">JNIEXPORT void JNICALL</div><div class="line">Java_com_iven_myapplication2_MainActivity_stringFromJNI(</div><div class="line">        JNIEnv *env,</div><div class="line">        jobject obj, jint sdk) &#123;</div><div class="line">    const char *data = &quot;data/data/com.iven.myapplication2&quot;;</div><div class="line">    pid_t pid = fork();</div><div class="line">    if (pid &lt; 0) &#123;&#125;</div><div class="line">    else if (pid &gt; 0) &#123;&#125;</div><div class="line">    else if (pid == 0) &#123;</div><div class="line">//        LOG(&quot;开启子进程&quot;);</div><div class="line">        int filerStruct = inotify_init();</div><div class="line">        if (filerStruct &lt; 0) &#123;</div><div class="line">//            LOG(&quot;监听失败&quot;);</div><div class="line">            exit(0);</div><div class="line">        &#125;</div><div class="line">        //监听哪个文件</div><div class="line">        int watchDescripter = inotify_add_watch(filerStruct, data, IN_DELETE);</div><div class="line">        if (watchDescripter &lt; 0) &#123;</div><div class="line">//            LOG(&quot;监听文件失败&quot;);</div><div class="line">            exit(0);</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        void *p_buf = malloc(sizeof(struct inotify_event));</div><div class="line"></div><div class="line">        //阻塞式 函数 app</div><div class="line">        size_t readBytes = read(filerStruct, p_buf, sizeof(struct inotify_event));</div><div class="line">        //释放内存</div><div class="line">        free(p_buf);</div><div class="line">        //app 被干掉了</div><div class="line">        inotify_rm_watch(filerStruct, IN_DELETE);</div><div class="line"></div><div class="line">        //跳转网页  4.1多用户  am命令 跳转网页 pm命令需要root权限</div><div class="line">        if (sdk &gt;= 17) &#123;</div><div class="line">            // -a action -d</div><div class="line">            execlp(&quot;am&quot;, &quot;am&quot;, &quot;start&quot;, &quot;--user&quot;, &quot;0&quot;, &quot;-a&quot;, &quot;android.intent.action.VIEW&quot;, &quot;-d&quot;,</div><div class="line">                   &quot;http://shouji.360.cn/web/uninstall/unistall.html&quot;, (char *) NULL);</div><div class="line">        &#125; else &#123;</div><div class="line"></div><div class="line">            execlp(&quot;am&quot;, &quot;am&quot;, &quot;start&quot;, &quot;-a&quot;, &quot;android.intent.action.VIEW&quot;,</div><div class="line">                   &quot;-d&quot;, &quot;http://www.baidu.com&quot;, (char *) NULL);</div><div class="line">        &#125;</div><div class="line"></div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 
       
     </div>
@@ -383,6 +383,141 @@
       
     <div class="article-tag tagcloud">
         <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/markdown-一分钟/">markdown 一分钟</a></li></ul>
+    </div>
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-java线程池原理" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a  href="/2017/01/08/java线程池原理/" class="article-date">
+      <time datetime="2017-01-08T15:26:22.000Z" itemprop="datePublished">2017-01-08</time>
+</a>
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a  class="article-title" href="/2017/01/08/java线程池原理/">java线程池原理</a>
+    </h1>
+  
+
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <h3 id="为什么使用线程池"><a href="#为什么使用线程池" class="headerlink" title="为什么使用线程池"></a>为什么使用线程池</h3><blockquote>
+<ol>
+<li>减少穿件和销毁线程的次数，重复使用线程</li>
+<li>合理调用工作线程数量，防止占用过多内存</li>
+</ol>
+</blockquote>
+<h3 id="线程池创建"><a href="#线程池创建" class="headerlink" title="线程池创建"></a>线程池创建</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">public ThreadPoolExecutor(int corePoolSize,</div><div class="line">						  int maximumPoolSize,</div><div class="line">                          long keepAliveTime,</div><div class="line">                          TimeUnit unit,</div><div class="line">                          ThreadFactory threadFactory,</div><div class="line">                          BlockingQueue&lt;Runnable&gt; workQueue,</div><div class="line">                          RejectedExecutionHandler handler</div><div class="line">							)</div></pre></td></tr></table></figure>
+<blockquote>
+<p>corePoolSize:线程池核心线程数量</p>
+<p>maximumPoolSize:线程池最大线程数量</p>
+<p>keepAliveTime:当活跃线程数大于核心线程数时，空闲的多余线程最大存活时间</p>
+<p>unit:存活时间的单位</p>
+<blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">&gt; &gt; TimeUnit.DAYS;               //天</div><div class="line">&gt; &gt; TimeUnit.HOURS;             //小时</div><div class="line">&gt; &gt; TimeUnit.MINUTES;           //分钟</div><div class="line">&gt; &gt; TimeUnit.SECONDS;           //秒</div><div class="line">&gt; &gt; TimeUnit.MILLISECONDS;      //毫秒</div><div class="line">&gt; &gt; TimeUnit.MICROSECONDS;      //微妙</div><div class="line">&gt; &gt; TimeUnit.NANOSECONDS;       //纳秒</div><div class="line">&gt; &gt;</div></pre></td></tr></table></figure>
+</blockquote>
+</blockquote>
+<p>&gt;</p>
+<blockquote>
+<p>ThreadFactory:线程工厂，忽略不计。</p>
+<p>workQueue:阻塞队列</p>
+<blockquote>
+<ul>
+<li>ArrayBlockingQueue;</li>
+<li>LinkedBlockingQueue;</li>
+<li>SynchronousQueue;</li>
+<li>PriorityBlockingQueue</li>
+<li>DelayQueue</li>
+<li>LinkedTransferQueue</li>
+<li>LinkedBlockingDeque</li>
+</ul>
+<p>ArrayBlockingQueue和PriorityBlockingQueue使用较少，一般使用LinkedBlockingQueue和Synchronous。线程池的排队策略与BlockingQueue有关。</p>
+</blockquote>
+<p>Handler：表示当拒绝处理任务时的策略</p>
+<blockquote>
+<p>有以下几种：</p>
+<ul>
+<li>ThreadPoolExecutor.AbortPolicy:丢弃任务并抛出RejectedExecutionException异常。</li>
+<li>ThreadPoolExecutor.DiscardPolicy：也是丢弃任务，但是不抛出异常。 </li>
+<li>ThreadPoolExecutor.DiscardOldestPolicy：丢弃队列最前面的任务，然后重新尝试执行任务（重复此过程）</li>
+<li>ThreadPoolExecutor.CallerRunsPolicy：由调用线程处理该任务 </li>
+</ul>
+</blockquote>
+</blockquote>
+<p>###线程池实现的原理：</p>
+<p>线程池的处理流程：</p>
+<p><img src="/Users/Iven/Desktop/线程池的处理流程.png" alt="线程池的处理流程"></p>
+<blockquote>
+<ol>
+<li>判断线程池里的核心线程是否都在执行任务，如果不是（核心线程空闲或者还有核心线程没有被创建）则创建一个新的工作线程来执行任务。如果核心线程都在执行任务，则进入下个流程。</li>
+<li>线程池判断工作队列是否已满，如果没有，则将新提交的任务存储在这个工作队列里。如果队列满了，则进入下个流程。</li>
+<li>判断线程池里的线程是否都处在工作状态，如果没有，则创建一个新的工作线程来执行任务。如果已经满了，则交给饱和策略来处理这个任务。</li>
+</ol>
+</blockquote>
+<h3 id="线程池源码解读"><a href="#线程池源码解读" class="headerlink" title="线程池源码解读"></a>线程池源码解读</h3><ol>
+<li>ThreadPoolExecutor的execute()方法</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">public void execute(Runnable command) &#123;</div><div class="line">       if (command == null)</div><div class="line">           throw new NullPointerException();</div><div class="line">　　　　　　 //如果线程数大于等于基本线程数或者线程创建失败，将任务加入队列</div><div class="line">       if (poolSize &gt;= corePoolSize || !addIfUnderCorePoolSize(command)) &#123;</div><div class="line">　　　　　　　　　　//线程池处于运行状态并且加入队列成功</div><div class="line">           if (runState == RUNNING &amp;&amp; workQueue.offer(command)) &#123;</div><div class="line">               if (runState != RUNNING || poolSize == 0)</div><div class="line">                   ensureQueuedTaskHandled(command);</div><div class="line">           &#125;</div><div class="line">　　　　　　　　　//线程池不处于运行状态或者加入队列失败，则创建线程（创建的是非核心线程）</div><div class="line">           else if (!addIfUnderMaximumPoolSize(command))</div><div class="line">　　　　　　　　　　　//创建线程失败，则采取阻塞处理的方式</div><div class="line">               reject(command); // is shutdown or saturated</div><div class="line">       &#125;</div><div class="line">   &#125;</div></pre></td></tr></table></figure>
+<ol>
+<li>创建线程的方法：addIfUnderCorePoolSize(command)</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">private boolean addIfUnderCorePoolSize(Runnable firstTask) &#123;</div><div class="line">        Thread t = null;</div><div class="line">        final ReentrantLock mainLock = this.mainLock;</div><div class="line">        mainLock.lock();</div><div class="line">        try &#123;</div><div class="line">            if (poolSize &lt; corePoolSize &amp;&amp; runState == RUNNING)</div><div class="line">                t = addThread(firstTask);</div><div class="line">        &#125; finally &#123;</div><div class="line">            mainLock.unlock();</div><div class="line">        &#125;</div><div class="line">        if (t == null)</div><div class="line">            return false;</div><div class="line">        t.start();</div><div class="line">        return true;</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+<ol>
+<li>我们重点来看第7行：</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">private Thread addThread(Runnable firstTask) &#123;</div><div class="line">        Worker w = new Worker(firstTask);</div><div class="line">        Thread t = threadFactory.newThread(w);</div><div class="line">        if (t != null) &#123;</div><div class="line">            w.thread = t;</div><div class="line">            workers.add(w);</div><div class="line">            int nt = ++poolSize;</div><div class="line">            if (nt &gt; largestPoolSize)</div><div class="line">                largestPoolSize = nt;</div><div class="line">        &#125;</div><div class="line">        return t;</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+<ol>
+<li>这里将线程封装成工作线程worker，并放入工作线程组里，worker类的方法run方法：</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">public void run() &#123;</div><div class="line">            try &#123;</div><div class="line">                Runnable task = firstTask;</div><div class="line">                firstTask = null;</div><div class="line">                while (task != null || (task = getTask()) != null) &#123;</div><div class="line">                    runTask(task);</div><div class="line">                    task = null;</div><div class="line">                &#125;</div><div class="line">            &#125; finally &#123;</div><div class="line">                workerDone(this);</div><div class="line">            &#125;</div><div class="line">        &#125;</div></pre></td></tr></table></figure>
+<p>worker在执行完任务后，还会通过getTask方法循环获取工作队里里的任务来执行。</p>
+<p>做一个测试案例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div></pre></td><td class="code"><pre><div class="line">import java.util.concurrent.LinkedBlockingQueue;</div><div class="line">import java.util.concurrent.RejectedExecutionHandler;</div><div class="line">import java.util.concurrent.ThreadPoolExecutor;</div><div class="line">import java.util.concurrent.TimeUnit;</div><div class="line"></div><div class="line">class ThreadTest implements Runnable&#123;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    public void run() &#123;</div><div class="line">        try &#123;</div><div class="line">            Thread.sleep(300);</div><div class="line">        &#125; catch (InterruptedException e) &#123;</div><div class="line">            e.printStackTrace();</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">public class MyClass &#123;</div><div class="line">    public static void main(String args[]) &#123;</div><div class="line"></div><div class="line">        LinkedBlockingQueue&lt;Runnable&gt; queue = new LinkedBlockingQueue&lt;&gt;(3);</div><div class="line">        RejectedExecutionHandler handler = new ThreadPoolExecutor.DiscardPolicy();</div><div class="line"></div><div class="line">        ThreadPoolExecutor threadPoolExecutor = new ThreadPoolExecutor(2, 5, 60, TimeUnit.SECONDS, queue,handler);</div><div class="line">        for (int i = 0; i &lt; 16; i++) &#123;</div><div class="line">            threadPoolExecutor.execute(new Thread(new ThreadTest(), &quot;Thread&quot; + i));</div><div class="line"></div><div class="line">            System.out.println(&quot;活跃数：&quot; + threadPoolExecutor.getPoolSize());</div><div class="line"></div><div class="line">            if (queue.size() &gt; 0) System.out.println(&quot;-----------------------------阻塞数&quot; + queue.size());</div><div class="line"></div><div class="line">        &#125;</div><div class="line"></div><div class="line">        threadPoolExecutor.shutdown();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>打印的结果：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div></pre></td><td class="code"><pre><div class="line">活跃数：1</div><div class="line">活跃数：2</div><div class="line">活跃数：2</div><div class="line">-----------------------------阻塞数1</div><div class="line">活跃数：2</div><div class="line">-----------------------------阻塞数2</div><div class="line">活跃数：2</div><div class="line">-----------------------------阻塞数3</div><div class="line">活跃数：3</div><div class="line">-----------------------------阻塞数3</div><div class="line">活跃数：4</div><div class="line">-----------------------------阻塞数3</div><div class="line">活跃数：5</div><div class="line">-----------------------------阻塞数3</div><div class="line">活跃数：5</div><div class="line">-----------------------------阻塞数3</div><div class="line">活跃数：5</div><div class="line">-----------------------------阻塞数3</div><div class="line">活跃数：5</div><div class="line">-----------------------------阻塞数3</div><div class="line">活跃数：5</div><div class="line">-----------------------------阻塞数3</div><div class="line">活跃数：5</div><div class="line">-----------------------------阻塞数3</div><div class="line">活跃数：5</div><div class="line">-----------------------------阻塞数3</div><div class="line">活跃数：5</div><div class="line">-----------------------------阻塞数3</div><div class="line">活跃数：5</div><div class="line">-----------------------------阻塞数3</div><div class="line"></div><div class="line">Process finished with exit code 0</div></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java-线程池-原理/">java 线程池 原理</a></li></ul>
     </div>
 
       

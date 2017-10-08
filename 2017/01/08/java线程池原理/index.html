@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="baidu-site-verification" content="L6Lm9d5Crl"/>
+  
+  
+  
+  
+  <title>java线程池原理 | Iven&#39;s Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="为什么使用线程池  减少穿件和销毁线程的次数，重复使用线程 合理调用工作线程数量，防止占用过多内存   线程池创建12345678public ThreadPoolExecutor(int corePoolSize,						  int maximumPoolSize,                          long keepAliveTime,">
+<meta name="keywords" content="java 线程池 原理">
+<meta property="og:type" content="article">
+<meta property="og:title" content="java线程池原理">
+<meta property="og:url" content="http://ivenOne.github.io/2017/01/08/java线程池原理/index.html">
+<meta property="og:site_name" content="Iven&#39;s Blog">
+<meta property="og:description" content="为什么使用线程池  减少穿件和销毁线程的次数，重复使用线程 合理调用工作线程数量，防止占用过多内存   线程池创建12345678public ThreadPoolExecutor(int corePoolSize,						  int maximumPoolSize,                          long keepAliveTime,">
+<meta property="og:image" content="http://ivenone.github.io/Users/Iven/Desktop/线程池的处理流程.png">
+<meta property="og:updated_time" content="2017-10-08T17:15:52.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="java线程池原理">
+<meta name="twitter:description" content="为什么使用线程池  减少穿件和销毁线程的次数，重复使用线程 合理调用工作线程数量，防止占用过多内存   线程池创建12345678public ThreadPoolExecutor(int corePoolSize,						  int maximumPoolSize,                          long keepAliveTime,">
+<meta name="twitter:image" content="http://ivenone.github.io/Users/Iven/Desktop/线程池的处理流程.png">
+  
+    <link rel="alternative" href="/atom.xml" title="Iven&#39;s Blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/img/favicon.png">
+  
+  
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  
+  
+      <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  
+  <!-- 加载特效 -->
+    <script src="/js/pace.js"></script>
+    <link href="/css/pace/pace-theme-flash.css" rel="stylesheet" />
+  <script>
+      var yiliaConfig = {
+          fancybox: true,
+          animate: false,
+          isHome: false,
+          isPost: true,
+          isArchive: false,
+          isTag: false,
+          isCategory: false,
+          open_in_new: false
+      }
+  </script>
+</head>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+    <header id="header" class="inner">
+        <script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+        <a href="/" class="profilepic">
+            
+            <img src="/img/avatar.png" class="js-avatar" style="width: 100%;height: 100%;opacity: 1;">
+            
+        </a>
+        <hgroup>
+          <h1 class="header-author"><a href="/">Iven Wan</a></h1>
+        </hgroup>
+        
+        <p class="header-subtitle">This is Iven Wan used for playing...</p>
+        
+        
+        
+        
+        <div id="switch-area" class="switch-area">
+            <div class="switch-wrap">
+                <section class="switch-part switch-part1">
+                    <nav class="header-menu">
+                        <ul>
+                        
+                            <li><a  href="/archives/">落魄码农随杂笔录</a></li>
+                        
+                        </ul>
+                    </nav>
+                    <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fl github"  target="_blank" href="https://github.com/ivenone" title="github">github</a>
+                            
+                        </ul>
+                    </nav>
+                </section>
+                
+                
+                
+                
+                <section class="switch-part switch-part3">
+                
+                    <div id="js-aboutme">曾经年少爱疯狂，如今年迈心发慌。酷爱宅家搞事情，一直都在编码ing...</div>
+                </section>
+                
+            </div>
+        </div>
+    </header>
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+      <div class="overlay">
+          <div class="slider-trigger"></div>
+          <h1 class="header-author js-mobile-header hide"><a href="/" title="回到主页">Iven Wan</a></h1>
+      </div>
+    <div class="intrude-less">
+        <header id="header" class="inner">
+            <a href="/" class="profilepic">
+                
+                    <img src="/img/avatar.png" class="js-avatar" style="width: 100%; height: 100%; opacity: 1;">
+                
+            </a>
+            <hgroup>
+              <h1 class="header-author"><a href="/" title="回到主页">Iven Wan</a></h1>
+            </hgroup>
+            
+            <p class="header-subtitle">This is Iven Wan used for playing...</p>
+            
+            <nav class="header-menu">
+                <ul>
+                
+                    <li><a href="/archives/">落魄码农随杂笔录</a></li>
+                
+                <div class="clearfix"></div>
+                </ul>
+            </nav>
+            <nav class="header-nav">
+                <div class="social">
+                    
+                        <a class="github" target="_blank" href="https://github.com/ivenone" title="github">github</a>
+                    
+                </div>
+            </nav>
+        </header>                
+    </div>
+</nav>
+      <div class="body-wrap"><article id="post-java线程池原理" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a  href="/2017/01/08/java线程池原理/" class="article-date">
+      <time datetime="2017-01-08T15:26:22.000Z" itemprop="datePublished">2017-01-08</time>
+</a>
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      java线程池原理
+    </h1>
+  
+
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+
+        
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java-线程池-原理/">java 线程池 原理</a></li></ul>
+    </div>
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <h3 id="为什么使用线程池"><a href="#为什么使用线程池" class="headerlink" title="为什么使用线程池"></a>为什么使用线程池</h3><blockquote>
+<ol>
+<li>减少穿件和销毁线程的次数，重复使用线程</li>
+<li>合理调用工作线程数量，防止占用过多内存</li>
+</ol>
+</blockquote>
+<h3 id="线程池创建"><a href="#线程池创建" class="headerlink" title="线程池创建"></a>线程池创建</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">public ThreadPoolExecutor(int corePoolSize,</div><div class="line">						  int maximumPoolSize,</div><div class="line">                          long keepAliveTime,</div><div class="line">                          TimeUnit unit,</div><div class="line">                          ThreadFactory threadFactory,</div><div class="line">                          BlockingQueue&lt;Runnable&gt; workQueue,</div><div class="line">                          RejectedExecutionHandler handler</div><div class="line">							)</div></pre></td></tr></table></figure>
+<blockquote>
+<p>corePoolSize:线程池核心线程数量</p>
+<p>maximumPoolSize:线程池最大线程数量</p>
+<p>keepAliveTime:当活跃线程数大于核心线程数时，空闲的多余线程最大存活时间</p>
+<p>unit:存活时间的单位</p>
+<blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">&gt; &gt; TimeUnit.DAYS;               //天</div><div class="line">&gt; &gt; TimeUnit.HOURS;             //小时</div><div class="line">&gt; &gt; TimeUnit.MINUTES;           //分钟</div><div class="line">&gt; &gt; TimeUnit.SECONDS;           //秒</div><div class="line">&gt; &gt; TimeUnit.MILLISECONDS;      //毫秒</div><div class="line">&gt; &gt; TimeUnit.MICROSECONDS;      //微妙</div><div class="line">&gt; &gt; TimeUnit.NANOSECONDS;       //纳秒</div><div class="line">&gt; &gt;</div></pre></td></tr></table></figure>
+</blockquote>
+</blockquote>
+<p>&gt;</p>
+<blockquote>
+<p>ThreadFactory:线程工厂，忽略不计。</p>
+<p>workQueue:阻塞队列</p>
+<blockquote>
+<ul>
+<li>ArrayBlockingQueue;</li>
+<li>LinkedBlockingQueue;</li>
+<li>SynchronousQueue;</li>
+<li>PriorityBlockingQueue</li>
+<li>DelayQueue</li>
+<li>LinkedTransferQueue</li>
+<li>LinkedBlockingDeque</li>
+</ul>
+<p>ArrayBlockingQueue和PriorityBlockingQueue使用较少，一般使用LinkedBlockingQueue和Synchronous。线程池的排队策略与BlockingQueue有关。</p>
+</blockquote>
+<p>Handler：表示当拒绝处理任务时的策略</p>
+<blockquote>
+<p>有以下几种：</p>
+<ul>
+<li>ThreadPoolExecutor.AbortPolicy:丢弃任务并抛出RejectedExecutionException异常。</li>
+<li>ThreadPoolExecutor.DiscardPolicy：也是丢弃任务，但是不抛出异常。 </li>
+<li>ThreadPoolExecutor.DiscardOldestPolicy：丢弃队列最前面的任务，然后重新尝试执行任务（重复此过程）</li>
+<li>ThreadPoolExecutor.CallerRunsPolicy：由调用线程处理该任务 </li>
+</ul>
+</blockquote>
+</blockquote>
+<p>###线程池实现的原理：</p>
+<p>线程池的处理流程：</p>
+<p><img src="/Users/Iven/Desktop/线程池的处理流程.png" alt="线程池的处理流程"></p>
+<blockquote>
+<ol>
+<li>判断线程池里的核心线程是否都在执行任务，如果不是（核心线程空闲或者还有核心线程没有被创建）则创建一个新的工作线程来执行任务。如果核心线程都在执行任务，则进入下个流程。</li>
+<li>线程池判断工作队列是否已满，如果没有，则将新提交的任务存储在这个工作队列里。如果队列满了，则进入下个流程。</li>
+<li>判断线程池里的线程是否都处在工作状态，如果没有，则创建一个新的工作线程来执行任务。如果已经满了，则交给饱和策略来处理这个任务。</li>
+</ol>
+</blockquote>
+<h3 id="线程池源码解读"><a href="#线程池源码解读" class="headerlink" title="线程池源码解读"></a>线程池源码解读</h3><ol>
+<li>ThreadPoolExecutor的execute()方法</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">public void execute(Runnable command) &#123;</div><div class="line">       if (command == null)</div><div class="line">           throw new NullPointerException();</div><div class="line">　　　　　　 //如果线程数大于等于基本线程数或者线程创建失败，将任务加入队列</div><div class="line">       if (poolSize &gt;= corePoolSize || !addIfUnderCorePoolSize(command)) &#123;</div><div class="line">　　　　　　　　　　//线程池处于运行状态并且加入队列成功</div><div class="line">           if (runState == RUNNING &amp;&amp; workQueue.offer(command)) &#123;</div><div class="line">               if (runState != RUNNING || poolSize == 0)</div><div class="line">                   ensureQueuedTaskHandled(command);</div><div class="line">           &#125;</div><div class="line">　　　　　　　　　//线程池不处于运行状态或者加入队列失败，则创建线程（创建的是非核心线程）</div><div class="line">           else if (!addIfUnderMaximumPoolSize(command))</div><div class="line">　　　　　　　　　　　//创建线程失败，则采取阻塞处理的方式</div><div class="line">               reject(command); // is shutdown or saturated</div><div class="line">       &#125;</div><div class="line">   &#125;</div></pre></td></tr></table></figure>
+<ol>
+<li>创建线程的方法：addIfUnderCorePoolSize(command)</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">private boolean addIfUnderCorePoolSize(Runnable firstTask) &#123;</div><div class="line">        Thread t = null;</div><div class="line">        final ReentrantLock mainLock = this.mainLock;</div><div class="line">        mainLock.lock();</div><div class="line">        try &#123;</div><div class="line">            if (poolSize &lt; corePoolSize &amp;&amp; runState == RUNNING)</div><div class="line">                t = addThread(firstTask);</div><div class="line">        &#125; finally &#123;</div><div class="line">            mainLock.unlock();</div><div class="line">        &#125;</div><div class="line">        if (t == null)</div><div class="line">            return false;</div><div class="line">        t.start();</div><div class="line">        return true;</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+<ol>
+<li>我们重点来看第7行：</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">private Thread addThread(Runnable firstTask) &#123;</div><div class="line">        Worker w = new Worker(firstTask);</div><div class="line">        Thread t = threadFactory.newThread(w);</div><div class="line">        if (t != null) &#123;</div><div class="line">            w.thread = t;</div><div class="line">            workers.add(w);</div><div class="line">            int nt = ++poolSize;</div><div class="line">            if (nt &gt; largestPoolSize)</div><div class="line">                largestPoolSize = nt;</div><div class="line">        &#125;</div><div class="line">        return t;</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+<ol>
+<li>这里将线程封装成工作线程worker，并放入工作线程组里，worker类的方法run方法：</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">public void run() &#123;</div><div class="line">            try &#123;</div><div class="line">                Runnable task = firstTask;</div><div class="line">                firstTask = null;</div><div class="line">                while (task != null || (task = getTask()) != null) &#123;</div><div class="line">                    runTask(task);</div><div class="line">                    task = null;</div><div class="line">                &#125;</div><div class="line">            &#125; finally &#123;</div><div class="line">                workerDone(this);</div><div class="line">            &#125;</div><div class="line">        &#125;</div></pre></td></tr></table></figure>
+<p>worker在执行完任务后，还会通过getTask方法循环获取工作队里里的任务来执行。</p>
+<p>做一个测试案例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div></pre></td><td class="code"><pre><div class="line">import java.util.concurrent.LinkedBlockingQueue;</div><div class="line">import java.util.concurrent.RejectedExecutionHandler;</div><div class="line">import java.util.concurrent.ThreadPoolExecutor;</div><div class="line">import java.util.concurrent.TimeUnit;</div><div class="line"></div><div class="line">class ThreadTest implements Runnable&#123;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    public void run() &#123;</div><div class="line">        try &#123;</div><div class="line">            Thread.sleep(300);</div><div class="line">        &#125; catch (InterruptedException e) &#123;</div><div class="line">            e.printStackTrace();</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">public class MyClass &#123;</div><div class="line">    public static void main(String args[]) &#123;</div><div class="line"></div><div class="line">        LinkedBlockingQueue&lt;Runnable&gt; queue = new LinkedBlockingQueue&lt;&gt;(3);</div><div class="line">        RejectedExecutionHandler handler = new ThreadPoolExecutor.DiscardPolicy();</div><div class="line"></div><div class="line">        ThreadPoolExecutor threadPoolExecutor = new ThreadPoolExecutor(2, 5, 60, TimeUnit.SECONDS, queue,handler);</div><div class="line">        for (int i = 0; i &lt; 16; i++) &#123;</div><div class="line">            threadPoolExecutor.execute(new Thread(new ThreadTest(), &quot;Thread&quot; + i));</div><div class="line"></div><div class="line">            System.out.println(&quot;活跃数：&quot; + threadPoolExecutor.getPoolSize());</div><div class="line"></div><div class="line">            if (queue.size() &gt; 0) System.out.println(&quot;-----------------------------阻塞数&quot; + queue.size());</div><div class="line"></div><div class="line">        &#125;</div><div class="line"></div><div class="line">        threadPoolExecutor.shutdown();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>打印的结果：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div></pre></td><td class="code"><pre><div class="line">活跃数：1</div><div class="line">活跃数：2</div><div class="line">活跃数：2</div><div class="line">-----------------------------阻塞数1</div><div class="line">活跃数：2</div><div class="line">-----------------------------阻塞数2</div><div class="line">活跃数：2</div><div class="line">-----------------------------阻塞数3</div><div class="line">活跃数：3</div><div class="line">-----------------------------阻塞数3</div><div class="line">活跃数：4</div><div class="line">-----------------------------阻塞数3</div><div class="line">活跃数：5</div><div class="line">-----------------------------阻塞数3</div><div class="line">活跃数：5</div><div class="line">-----------------------------阻塞数3</div><div class="line">活跃数：5</div><div class="line">-----------------------------阻塞数3</div><div class="line">活跃数：5</div><div class="line">-----------------------------阻塞数3</div><div class="line">活跃数：5</div><div class="line">-----------------------------阻塞数3</div><div class="line">活跃数：5</div><div class="line">-----------------------------阻塞数3</div><div class="line">活跃数：5</div><div class="line">-----------------------------阻塞数3</div><div class="line">活跃数：5</div><div class="line">-----------------------------阻塞数3</div><div class="line">活跃数：5</div><div class="line">-----------------------------阻塞数3</div><div class="line"></div><div class="line">Process finished with exit code 0</div></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+  </div>
+  
+    
+    <div class="copyright">
+        <p><span>本文标题:</span><a  href="/2017/01/08/java线程池原理/">java线程池原理</a></p>
+        <p><span>文章作者:</span><a  href="/" title="访问 Iven Wan 的个人博客">Iven Wan</a></p>
+        <p><span>发布时间:</span>2017年01月08日 - 23时26分</p>
+       <!-- <p><span>最后更新:</span>2017年10月09日 - 01时15分</p> -->
+        <p>
+            <span>原始链接:</span><a class="post-url" href="/2017/01/08/java线程池原理/" title="java线程池原理">http://ivenOne.github.io/2017/01/08/java线程池原理/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://ivenOne.github.io/2017/01/08/java线程池原理/　　作者: Iven Wan" title=""></span>
+        </p>
+        <p>
+            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" title="中国大陆 (CC BY-NC-SA 3.0 CN)" target = "_blank">"署名-非商用-相同方式共享 3.0"</a> 转载请保留原文链接及作者。
+        </p>
+    </div>
+
+
+
+<nav id="article-nav">
+  
+    <a  href="/2017/02/07/一分钟学会markdown/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          一分钟学会markdown
+        
+      </div>
+    </a>
+  
+  
+    <a  href="/2017/01/05/MarkDown的使用/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">MarkDown的使用</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+
+  
+</article>
+
+    <!--
+<div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#为什么使用线程池"><span class="toc-number">1.</span> <span class="toc-text">为什么使用线程池</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#线程池创建"><span class="toc-number">2.</span> <span class="toc-text">线程池创建</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#线程池源码解读"><span class="toc-number">3.</span> <span class="toc-text">线程池源码解读</span></a></li></ol>
+</div>
+-->
+<style>
+    .left-col .switch-btn {
+        display: none;
+    }
+    .left-col .switch-area {
+        display: none;
+    }
+</style>
+<!-- <input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录"> -->
+<script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script>
+/*    var valueHide = "隐藏目录";
+    var valueShow = "显示目录";
+    if ($(".left-col").is(":hidden")) {
+        $("#tocButton").attr("value", valueShow);
+    }
+    $("#tocButton").click(function() {
+        if ($("#toc").is(":hidden")) {
+            $("#tocButton").attr("value", valueHide);
+            $("#toc").slideDown(320);
+            $(".switch-btn, .switch-area").fadeOut(300);
+        }
+        else {
+            $("#tocButton").attr("value", valueShow);
+            $("#toc").slideUp(350);
+            $(".switch-btn, .switch-area").fadeIn(500);
+        }
+    })
+    if ($(".toc").length < 1) {
+        $("#toc, #tocButton").hide();
+        $(".switch-btn, .switch-area").show();
+    } 
+    */
+</script>
+
+
+
+
+
+
+    
+        <section class="changyan" id="comments">
+  <!--<div id="uyan_frame"></div>-->
+  <div id="SOHUCS"></div>
+  <script charset="utf-8" type="text/javascript" src="https://changyan.sohu.com/upload/changyan.js"></script>
+  <script type="text/javascript">
+    window.changyan.api.config({
+      appid: 'cyteTXawh',
+      conf: 'aed4099df0f485c153b1fae6907011ef'
+    });
+  </script>
+</section>
+    
+
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a  href="/2017/02/07/一分钟学会markdown/" title="上一篇: 一分钟学会markdown">
+                <i class="fa fa-angle-left"></i>
+            </a>
+        
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+        
+            <a  href="/2017/01/05/MarkDown的使用/" title="下一篇: MarkDown的使用">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
+    </div>
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2017/02/08/如何做到像360助手卸载之后跳转到指定网页/">如何做到像360助手卸载之后跳转到指定网页</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/07/java内存泄漏分析/">java内存泄漏分析</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/07/一分钟学会markdown/">一分钟学会markdown</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/01/08/java线程池原理/">java线程池原理</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/01/05/MarkDown的使用/">MarkDown的使用</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/01/04/sublimeText3注册码/">sublimeText3注册码</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/01/02/hello-world/">Hello World</a></li></ul>
+    <script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+    <script>
+        $(".post-list").addClass("toc-article");
+        // $(".post-list-item a").attr("target","_blank");
+        $("#post-nav-button > a:nth-child(2)").click(function() {
+            $(".fa-bars, .fa-times").toggle();
+            $(".post-list").toggle(300);
+            if ($(".toc").length > 0) {
+                $("#toc, #tocButton").toggle(200, function() {
+                    if ($(".switch-area").is(":visible")) {
+                        $("#toc, .switch-btn, .switch-area").toggle();
+                        $("#tocButton").attr("value", valueHide);
+                        }
+                    })
+            }
+            else {
+                $(".switch-btn, .switch-area").fadeToggle(300);
+            }
+        })
+    </script>
+
+
+
+
+    <script>
+        
+    </script>
+
+</div>
+      <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                &copy; 2017 Iven Wan
+            </div>
+            <div class="footer-right">
+                一ૢ直ૢ偷ૢ偷ૢ的ૢ偷ૢ偷ૢ的ૢ偷ૢ偷ૢ滴ૢ想ૢ着ૢ气⃣人⃣精⃣......
+            </div>
+        </div>
+        
+    </div>
+</footer>
+
+    </div>
+    <script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script src="/js/main.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            var backgroundnum = 4;
+            var backgroundimg = "url(/background/bg-x.jpg)".replace(/x/gi, Math.ceil(Math.random() * backgroundnum));
+            $("#mobile-nav").css({"background-image": backgroundimg,"background-size": "cover","background-position": "center"});
+            $(".left-col").css({"background-image": backgroundimg,"background-size": "cover","background-position": "center"});
+        })
+    </script>
+
+
+<!-- Google Analytics -->
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'xxxxx', 'auto');
+ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+
+
+
+	<script>
+	var _hmt = _hmt || [];
+	(function() {
+	  var hm = document.createElement("script");
+	  hm.src = "//hm.baidu.com/hm.js?xxxxxx";
+	  var s = document.getElementsByTagName("script")[0]; 
+	  s.parentNode.insertBefore(hm, s);
+	})();
+	</script>
+
+
+
+<div class="scroll" id="scroll">
+    <a href="#"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer"><i class="fa fa-arrow-down"></i></a>
+</div>
+<script>
+    $(document).ready(function() {
+        if ($("#comments").length < 1) {
+            $("#scroll > a:nth-child(2)").hide();
+        };
+    })
+</script>
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+
+
+  </div>
+</body>
+</html>
