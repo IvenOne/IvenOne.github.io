@@ -13,15 +13,15 @@
 <meta name="keywords" content="java 线程池 原理">
 <meta property="og:type" content="article">
 <meta property="og:title" content="java线程池原理">
-<meta property="og:url" content="http://ivenOne.github.io/2017/01/08/java线程池原理/index.html">
+<meta property="og:url" content="http://ivenOne.github.io/2017/01/09/java线程池原理/index.html">
 <meta property="og:site_name" content="Iven&#39;s Blog">
 <meta property="og:description" content="为什么使用线程池  减少穿件和销毁线程的次数，重复使用线程 合理调用工作线程数量，防止占用过多内存   线程池创建12345678public ThreadPoolExecutor(int corePoolSize,						  int maximumPoolSize,                          long keepAliveTime,">
-<meta property="og:image" content="http://ivenone.github.io/Users/Iven/Desktop/线程池的处理流程.png">
-<meta property="og:updated_time" content="2017-10-08T17:15:52.000Z">
+<meta property="og:image" content="http://ivenone.github.io/2017/01/09/img/线程池的处理流程.png">
+<meta property="og:updated_time" content="2017-10-08T17:27:58.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="java线程池原理">
 <meta name="twitter:description" content="为什么使用线程池  减少穿件和销毁线程的次数，重复使用线程 合理调用工作线程数量，防止占用过多内存   线程池创建12345678public ThreadPoolExecutor(int corePoolSize,						  int maximumPoolSize,                          long keepAliveTime,">
-<meta name="twitter:image" content="http://ivenone.github.io/Users/Iven/Desktop/线程池的处理流程.png">
+<meta name="twitter:image" content="http://ivenone.github.io/2017/01/09/img/线程池的处理流程.png">
   
     <link rel="alternative" href="/atom.xml" title="Iven&#39;s Blog" type="application/atom+xml">
   
@@ -146,8 +146,8 @@
       <div class="body-wrap"><article id="post-java线程池原理" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a  href="/2017/01/08/java线程池原理/" class="article-date">
-      <time datetime="2017-01-08T15:26:22.000Z" itemprop="datePublished">2017-01-08</time>
+      <a  href="/2017/01/09/java线程池原理/" class="article-date">
+      <time datetime="2017-01-09T15:26:22.000Z" itemprop="datePublished">2017-01-09</time>
 </a>
 
     </div>
@@ -196,11 +196,8 @@
 <p>keepAliveTime:当活跃线程数大于核心线程数时，空闲的多余线程最大存活时间</p>
 <p>unit:存活时间的单位</p>
 <blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">&gt; &gt; TimeUnit.DAYS;               //天</div><div class="line">&gt; &gt; TimeUnit.HOURS;             //小时</div><div class="line">&gt; &gt; TimeUnit.MINUTES;           //分钟</div><div class="line">&gt; &gt; TimeUnit.SECONDS;           //秒</div><div class="line">&gt; &gt; TimeUnit.MILLISECONDS;      //毫秒</div><div class="line">&gt; &gt; TimeUnit.MICROSECONDS;      //微妙</div><div class="line">&gt; &gt; TimeUnit.NANOSECONDS;       //纳秒</div><div class="line">&gt; &gt;</div></pre></td></tr></table></figure>
+<p>TimeUnit.DAYS;               //天<br>TimeUnit.HOURS;             //小时<br>TimeUnit.MINUTES;           //分钟<br>TimeUnit.SECONDS;           //秒<br>TimeUnit.MILLISECONDS;      //毫秒<br>TimeUnit.MICROSECONDS;      //微妙<br>TimeUnit.NANOSECONDS;       //纳秒</p>
 </blockquote>
-</blockquote>
-<p>&gt;</p>
-<blockquote>
 <p>ThreadFactory:线程工厂，忽略不计。</p>
 <p>workQueue:阻塞队列</p>
 <blockquote>
@@ -228,7 +225,7 @@
 </blockquote>
 <p>###线程池实现的原理：</p>
 <p>线程池的处理流程：</p>
-<p><img src="/Users/Iven/Desktop/线程池的处理流程.png" alt="线程池的处理流程"></p>
+<p><img src="../img/线程池的处理流程.png" alt="线程池的处理流程"></p>
 <blockquote>
 <ol>
 <li>判断线程池里的核心线程是否都在执行任务，如果不是（核心线程空闲或者还有核心线程没有被创建）则创建一个新的工作线程来执行任务。如果核心线程都在执行任务，则进入下个流程。</li>
@@ -236,21 +233,21 @@
 <li>判断线程池里的线程是否都处在工作状态，如果没有，则创建一个新的工作线程来执行任务。如果已经满了，则交给饱和策略来处理这个任务。</li>
 </ol>
 </blockquote>
-<h3 id="线程池源码解读"><a href="#线程池源码解读" class="headerlink" title="线程池源码解读"></a>线程池源码解读</h3><ol>
+<h3 id="线程池源码解读"><a href="#线程池源码解读" class="headerlink" title="线程池源码解读"></a>线程池源码解读</h3><ul>
 <li>ThreadPoolExecutor的execute()方法</li>
-</ol>
+</ul>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">public void execute(Runnable command) &#123;</div><div class="line">       if (command == null)</div><div class="line">           throw new NullPointerException();</div><div class="line">　　　　　　 //如果线程数大于等于基本线程数或者线程创建失败，将任务加入队列</div><div class="line">       if (poolSize &gt;= corePoolSize || !addIfUnderCorePoolSize(command)) &#123;</div><div class="line">　　　　　　　　　　//线程池处于运行状态并且加入队列成功</div><div class="line">           if (runState == RUNNING &amp;&amp; workQueue.offer(command)) &#123;</div><div class="line">               if (runState != RUNNING || poolSize == 0)</div><div class="line">                   ensureQueuedTaskHandled(command);</div><div class="line">           &#125;</div><div class="line">　　　　　　　　　//线程池不处于运行状态或者加入队列失败，则创建线程（创建的是非核心线程）</div><div class="line">           else if (!addIfUnderMaximumPoolSize(command))</div><div class="line">　　　　　　　　　　　//创建线程失败，则采取阻塞处理的方式</div><div class="line">               reject(command); // is shutdown or saturated</div><div class="line">       &#125;</div><div class="line">   &#125;</div></pre></td></tr></table></figure>
-<ol>
+<ul>
 <li>创建线程的方法：addIfUnderCorePoolSize(command)</li>
-</ol>
+</ul>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">private boolean addIfUnderCorePoolSize(Runnable firstTask) &#123;</div><div class="line">        Thread t = null;</div><div class="line">        final ReentrantLock mainLock = this.mainLock;</div><div class="line">        mainLock.lock();</div><div class="line">        try &#123;</div><div class="line">            if (poolSize &lt; corePoolSize &amp;&amp; runState == RUNNING)</div><div class="line">                t = addThread(firstTask);</div><div class="line">        &#125; finally &#123;</div><div class="line">            mainLock.unlock();</div><div class="line">        &#125;</div><div class="line">        if (t == null)</div><div class="line">            return false;</div><div class="line">        t.start();</div><div class="line">        return true;</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
-<ol>
+<ul>
 <li>我们重点来看第7行：</li>
-</ol>
+</ul>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">private Thread addThread(Runnable firstTask) &#123;</div><div class="line">        Worker w = new Worker(firstTask);</div><div class="line">        Thread t = threadFactory.newThread(w);</div><div class="line">        if (t != null) &#123;</div><div class="line">            w.thread = t;</div><div class="line">            workers.add(w);</div><div class="line">            int nt = ++poolSize;</div><div class="line">            if (nt &gt; largestPoolSize)</div><div class="line">                largestPoolSize = nt;</div><div class="line">        &#125;</div><div class="line">        return t;</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
-<ol>
+<ul>
 <li>这里将线程封装成工作线程worker，并放入工作线程组里，worker类的方法run方法：</li>
-</ol>
+</ul>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">public void run() &#123;</div><div class="line">            try &#123;</div><div class="line">                Runnable task = firstTask;</div><div class="line">                firstTask = null;</div><div class="line">                while (task != null || (task = getTask()) != null) &#123;</div><div class="line">                    runTask(task);</div><div class="line">                    task = null;</div><div class="line">                &#125;</div><div class="line">            &#125; finally &#123;</div><div class="line">                workerDone(this);</div><div class="line">            &#125;</div><div class="line">        &#125;</div></pre></td></tr></table></figure>
 <p>worker在执行完任务后，还会通过getTask方法循环获取工作队里里的任务来执行。</p>
 <p>做一个测试案例：</p>
@@ -265,13 +262,13 @@
   
     
     <div class="copyright">
-        <p><span>本文标题:</span><a  href="/2017/01/08/java线程池原理/">java线程池原理</a></p>
+        <p><span>本文标题:</span><a  href="/2017/01/09/java线程池原理/">java线程池原理</a></p>
         <p><span>文章作者:</span><a  href="/" title="访问 Iven Wan 的个人博客">Iven Wan</a></p>
-        <p><span>发布时间:</span>2017年01月08日 - 23时26分</p>
-       <!-- <p><span>最后更新:</span>2017年10月09日 - 01时15分</p> -->
+        <p><span>发布时间:</span>2017年01月09日 - 23时26分</p>
+       <!-- <p><span>最后更新:</span>2017年10月09日 - 01时27分</p> -->
         <p>
-            <span>原始链接:</span><a class="post-url" href="/2017/01/08/java线程池原理/" title="java线程池原理">http://ivenOne.github.io/2017/01/08/java线程池原理/</a>
-            <span class="copy-path" data-clipboard-text="原文: http://ivenOne.github.io/2017/01/08/java线程池原理/　　作者: Iven Wan" title=""></span>
+            <span>原始链接:</span><a class="post-url" href="/2017/01/09/java线程池原理/" title="java线程池原理">http://ivenOne.github.io/2017/01/09/java线程池原理/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://ivenOne.github.io/2017/01/09/java线程池原理/　　作者: Iven Wan" title=""></span>
         </p>
         <p>
             <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" title="中国大陆 (CC BY-NC-SA 3.0 CN)" target = "_blank">"署名-非商用-相同方式共享 3.0"</a> 转载请保留原文链接及作者。
@@ -282,18 +279,9 @@
 
 <nav id="article-nav">
   
-    <a  href="/2017/02/07/一分钟学会markdown/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption"><</strong>
-      <div class="article-nav-title">
-        
-          一分钟学会markdown
-        
-      </div>
-    </a>
   
-  
-    <a  href="/2017/01/05/MarkDown的使用/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">MarkDown的使用</div>
+    <a  href="/2017/01/08/如何做到像360助手卸载之后跳转到指定网页/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">如何做到像360助手卸载之后跳转到指定网页</div>
       <strong class="article-nav-caption">></strong>
     </a>
   
@@ -367,18 +355,16 @@
 
     <div class="scroll" id="post-nav-button">
         
-            <a  href="/2017/02/07/一分钟学会markdown/" title="上一篇: 一分钟学会markdown">
-                <i class="fa fa-angle-left"></i>
-            </a>
+            <a  href="/" title="回到主页"><i class="fa fa-home"></i></a>
         
         <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
         
-            <a  href="/2017/01/05/MarkDown的使用/" title="下一篇: MarkDown的使用">
+            <a  href="/2017/01/08/如何做到像360助手卸载之后跳转到指定网页/" title="下一篇: 如何做到像360助手卸载之后跳转到指定网页">
                 <i class="fa fa-angle-right"></i>
             </a>
         
     </div>
-    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2017/02/08/如何做到像360助手卸载之后跳转到指定网页/">如何做到像360助手卸载之后跳转到指定网页</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/07/java内存泄漏分析/">java内存泄漏分析</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/07/一分钟学会markdown/">一分钟学会markdown</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/01/08/java线程池原理/">java线程池原理</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/01/05/MarkDown的使用/">MarkDown的使用</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/01/04/sublimeText3注册码/">sublimeText3注册码</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/01/02/hello-world/">Hello World</a></li></ul>
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2017/01/09/java线程池原理/">java线程池原理</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/01/08/如何做到像360助手卸载之后跳转到指定网页/">如何做到像360助手卸载之后跳转到指定网页</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/01/07/java内存泄漏分析/">java内存泄漏分析</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/01/07/一分钟学会markdown/">一分钟学会markdown</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/01/05/MarkDown的使用/">MarkDown的使用</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/01/04/sublimeText3注册码/">sublimeText3注册码</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/01/02/hello-world/">Hello World</a></li></ul>
     <script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
     <script>
         $(".post-list").addClass("toc-article");

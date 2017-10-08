@@ -7,19 +7,19 @@
   
   
   
-  <title>java内存泄漏分析 | Iven&#39;s Blog</title>
+  <title>一分钟学会markdown | Iven&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="内存泄漏 内存不在GC的掌握之内了  了解几个问题 垃圾回收机制 GC：某对象不再有任何的引用的时候才会被回收 ###GC回收机制的原理(可以作为GC Root引用点的是)：   JavaStack 中引用的对象 方法区中静态引用指向的对象 方法去中常量引用指向的对象 native方法中JNI引用的对象 Thread—“活着的”线程   ###怎么判断一个对象是垃圾对象？  这是一个主观的判断">
-<meta name="keywords" content="java 内存分析">
+  <meta name="description" content="标题 ​标题有6种，以#开头  字体加粗加斜体 ​字体***加粗家斜体***    （1个 代表斜体，2个*代表粗体）  代码块 ​语法：```  图片展示 语法：![ ]()  链接展示 语法：[]()  引用展示 语法：&amp;gt;开头  无需列表  语法：可以是【+ - *】 + 空格  有序列表 语法：数字   + . + 空格    分割线 语法：【- - - 或者   *】至少3个或3个">
+<meta name="keywords" content="markdown 一分钟">
 <meta property="og:type" content="article">
-<meta property="og:title" content="java内存泄漏分析">
-<meta property="og:url" content="http://ivenOne.github.io/2017/02/07/java内存泄漏分析/index.html">
+<meta property="og:title" content="一分钟学会markdown">
+<meta property="og:url" content="http://ivenOne.github.io/2017/01/07/一分钟学会markdown/index.html">
 <meta property="og:site_name" content="Iven&#39;s Blog">
-<meta property="og:description" content="内存泄漏 内存不在GC的掌握之内了  了解几个问题 垃圾回收机制 GC：某对象不再有任何的引用的时候才会被回收 ###GC回收机制的原理(可以作为GC Root引用点的是)：   JavaStack 中引用的对象 方法区中静态引用指向的对象 方法去中常量引用指向的对象 native方法中JNI引用的对象 Thread—“活着的”线程   ###怎么判断一个对象是垃圾对象？  这是一个主观的判断">
-<meta property="og:updated_time" content="2017-10-07T14:23:59.000Z">
+<meta property="og:description" content="标题 ​标题有6种，以#开头  字体加粗加斜体 ​字体***加粗家斜体***    （1个 代表斜体，2个*代表粗体）  代码块 ​语法：```  图片展示 语法：![ ]()  链接展示 语法：[]()  引用展示 语法：&amp;gt;开头  无需列表  语法：可以是【+ - *】 + 空格  有序列表 语法：数字   + . + 空格    分割线 语法：【- - - 或者   *】至少3个或3个">
+<meta property="og:updated_time" content="2017-10-08T17:22:37.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="java内存泄漏分析">
-<meta name="twitter:description" content="内存泄漏 内存不在GC的掌握之内了  了解几个问题 垃圾回收机制 GC：某对象不再有任何的引用的时候才会被回收 ###GC回收机制的原理(可以作为GC Root引用点的是)：   JavaStack 中引用的对象 方法区中静态引用指向的对象 方法去中常量引用指向的对象 native方法中JNI引用的对象 Thread—“活着的”线程   ###怎么判断一个对象是垃圾对象？  这是一个主观的判断">
+<meta name="twitter:title" content="一分钟学会markdown">
+<meta name="twitter:description" content="标题 ​标题有6种，以#开头  字体加粗加斜体 ​字体***加粗家斜体***    （1个 代表斜体，2个*代表粗体）  代码块 ​语法：```  图片展示 语法：![ ]()  链接展示 语法：[]()  引用展示 语法：&amp;gt;开头  无需列表  语法：可以是【+ - *】 + 空格  有序列表 语法：数字   + . + 空格    分割线 语法：【- - - 或者   *】至少3个或3个">
   
     <link rel="alternative" href="/atom.xml" title="Iven&#39;s Blog" type="application/atom+xml">
   
@@ -141,11 +141,11 @@
         </header>                
     </div>
 </nav>
-      <div class="body-wrap"><article id="post-java内存泄漏分析" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-一分钟学会markdown" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a  href="/2017/02/07/java内存泄漏分析/" class="article-date">
-      <time datetime="2017-02-07T10:56:42.000Z" itemprop="datePublished">2017-02-07</time>
+      <a  href="/2017/01/07/一分钟学会markdown/" class="article-date">
+      <time datetime="2017-01-07T08:30:46.000Z" itemprop="datePublished">2017-01-07</time>
 </a>
 
     </div>
@@ -159,7 +159,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      java内存泄漏分析
+      一分钟学会markdown
     </h1>
   
 
@@ -171,7 +171,7 @@
 
         
     <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java-内存分析/">java 内存分析</a></li></ul>
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/markdown-一分钟/">markdown 一分钟</a></li></ul>
     </div>
 
         <div class="clearfix"></div>
@@ -181,46 +181,40 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <h2 id="内存泄漏"><a href="#内存泄漏" class="headerlink" title="内存泄漏"></a><strong><em>内存泄漏</em></strong></h2><blockquote>
-<p>内存不在GC的掌握之内了</p>
-</blockquote>
-<h2 id="了解几个问题"><a href="#了解几个问题" class="headerlink" title="了解几个问题"></a>了解几个问题</h2><blockquote>
-<p><strong><em>垃圾回收机制 GC</em></strong>：某对象不再有任何的引用的时候才会被回收</p>
-<p>###GC回收机制的原理(可以作为GC Root引用点的是)：</p>
-<blockquote>
+        <ul>
+<li><p>标题</p>
+<p>​标题有6种，以#开头</p>
+</li>
+<li><p>字体加粗加斜体</p>
+<p>​字体***加粗家斜体***    （1个<em> 代表斜体，2个*</em>代表粗体）</p>
+</li>
+<li><p>代码块</p>
+<p>​语法：```</p>
+</li>
+<li><p>图片展示</p>
+<p>语法：![ ]()</p>
+</li>
+<li><p>链接展示</p>
+<p>语法：[]()</p>
+</li>
+<li><p>引用展示</p>
+<p>语法：&gt;开头</p>
+</li>
+<li><p>无需列表</p>
+<p> 语法：可以是【+ - *】 + 空格</p>
+</li>
+<li><p>有序列表</p>
+<p>语法：数字   + . + 空格</p>
+</li>
+</ul>
+<ul>
+<li><p>分割线</p>
+<p>语法：【- - - 或者 <em> </em> *】至少3个或3个以上</p>
+</li>
+</ul>
 <ol>
-<li>JavaStack 中引用的对象</li>
-<li>方法区中静态引用指向的对象</li>
-<li>方法去中常量引用指向的对象</li>
-<li>native方法中JNI引用的对象</li>
-<li>Thread—“活着的”线程</li>
+<li>​</li>
 </ol>
-</blockquote>
-<p>###怎么判断一个对象是垃圾对象？</p>
-<blockquote>
-<p>这是一个主观的判断</p>
-</blockquote>
-<h3 id="内存泄漏多了容易导致oom-app会崩溃"><a href="#内存泄漏多了容易导致oom-app会崩溃" class="headerlink" title="内存泄漏多了容易导致oom,app会崩溃"></a>内存泄漏多了容易导致oom,app会崩溃</h3></blockquote>
-<h2 id="确定我们项目中或者几个类里面是否存在内存泄漏"><a href="#确定我们项目中或者几个类里面是否存在内存泄漏" class="headerlink" title="确定我们项目中或者几个类里面是否存在内存泄漏"></a>确定我们项目中或者几个类里面是否存在内存泄漏</h2><blockquote>
-<p>android 工程可以使用Android studio 中的android moitor——&gt;System information——&gt;MemoryUsage 查看Ojbects里面是否有没有被释放的Views或者Activity的数量是否为0.</p>
-<p>命令行模式：adb shell dumpsys meminfo 包名 -d</p>
-</blockquote>
-<h2 id="确定内存泄漏的大致范围"><a href="#确定内存泄漏的大致范围" class="headerlink" title="确定内存泄漏的大致范围"></a>确定内存泄漏的大致范围</h2><blockquote>
-<p>AndroidStudio方式：看Memory moitor 工具。</p>
-<p>检查一个一个的动作，（比如Activity跳转）</p>
-<p>反复多次执行某一个操作，不断地通过这个工具查看内存的大概变化情况。前后两个内存变化增加了不少</p>
-</blockquote>
-<h2 id="更仔细的查看泄漏的位置"><a href="#更仔细的查看泄漏的位置" class="headerlink" title="更仔细的查看泄漏的位置"></a>更仔细的查看泄漏的位置</h2><blockquote>
-<p>在As里里面使用Heap SnapShot 工具（堆栈快照）</p>
-<p>生成hprof 文件</p>
-</blockquote>
-<h2 id="使用更高级的分析工具来更具体的找到这个泄漏的位置"><a href="#使用更高级的分析工具来更具体的找到这个泄漏的位置" class="headerlink" title="使用更高级的分析工具来更具体的找到这个泄漏的位置"></a>使用更高级的分析工具来更具体的找到这个泄漏的位置</h2><blockquote>
-<ol>
-<li>导出hprof文件</li>
-<li>下载mat软件：memoryAnalyzer.exe 或者插件</li>
-<li>正常与异常进行对比，发现可疑的对象。</li>
-</ol>
-</blockquote>
 
       
     </div>
@@ -229,13 +223,13 @@
   
     
     <div class="copyright">
-        <p><span>本文标题:</span><a  href="/2017/02/07/java内存泄漏分析/">java内存泄漏分析</a></p>
+        <p><span>本文标题:</span><a  href="/2017/01/07/一分钟学会markdown/">一分钟学会markdown</a></p>
         <p><span>文章作者:</span><a  href="/" title="访问 Iven Wan 的个人博客">Iven Wan</a></p>
-        <p><span>发布时间:</span>2017年02月07日 - 18时56分</p>
-       <!-- <p><span>最后更新:</span>2017年10月07日 - 22时23分</p> -->
+        <p><span>发布时间:</span>2017年01月07日 - 16时30分</p>
+       <!-- <p><span>最后更新:</span>2017年10月09日 - 01时22分</p> -->
         <p>
-            <span>原始链接:</span><a class="post-url" href="/2017/02/07/java内存泄漏分析/" title="java内存泄漏分析">http://ivenOne.github.io/2017/02/07/java内存泄漏分析/</a>
-            <span class="copy-path" data-clipboard-text="原文: http://ivenOne.github.io/2017/02/07/java内存泄漏分析/　　作者: Iven Wan" title=""></span>
+            <span>原始链接:</span><a class="post-url" href="/2017/01/07/一分钟学会markdown/" title="一分钟学会markdown">http://ivenOne.github.io/2017/01/07/一分钟学会markdown/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://ivenOne.github.io/2017/01/07/一分钟学会markdown/　　作者: Iven Wan" title=""></span>
         </p>
         <p>
             <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" title="中国大陆 (CC BY-NC-SA 3.0 CN)" target = "_blank">"署名-非商用-相同方式共享 3.0"</a> 转载请保留原文链接及作者。
@@ -246,18 +240,18 @@
 
 <nav id="article-nav">
   
-    <a  href="/2017/02/08/如何做到像360助手卸载之后跳转到指定网页/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a  href="/2017/01/07/java内存泄漏分析/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption"><</strong>
       <div class="article-nav-title">
         
-          如何做到像360助手卸载之后跳转到指定网页
+          java内存泄漏分析
         
       </div>
     </a>
   
   
-    <a  href="/2017/02/07/一分钟学会markdown/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">一分钟学会markdown</div>
+    <a  href="/2017/01/05/MarkDown的使用/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">MarkDown的使用</div>
       <strong class="article-nav-caption">></strong>
     </a>
   
@@ -270,7 +264,7 @@
     <!--
 <div id="toc" class="toc-article">
     <strong class="toc-title">文章目录</strong>
-    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#内存泄漏"><span class="toc-number">1.</span> <span class="toc-text">内存泄漏</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#了解几个问题"><span class="toc-number">2.</span> <span class="toc-text">了解几个问题</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#内存泄漏多了容易导致oom-app会崩溃"><span class="toc-number">2.1.</span> <span class="toc-text">内存泄漏多了容易导致oom,app会崩溃</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#确定我们项目中或者几个类里面是否存在内存泄漏"><span class="toc-number">3.</span> <span class="toc-text">确定我们项目中或者几个类里面是否存在内存泄漏</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#确定内存泄漏的大致范围"><span class="toc-number">4.</span> <span class="toc-text">确定内存泄漏的大致范围</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#更仔细的查看泄漏的位置"><span class="toc-number">5.</span> <span class="toc-text">更仔细的查看泄漏的位置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#使用更高级的分析工具来更具体的找到这个泄漏的位置"><span class="toc-number">6.</span> <span class="toc-text">使用更高级的分析工具来更具体的找到这个泄漏的位置</span></a></li></ol>
+    
 </div>
 -->
 <style>
@@ -331,18 +325,18 @@
 
     <div class="scroll" id="post-nav-button">
         
-            <a  href="/2017/02/08/如何做到像360助手卸载之后跳转到指定网页/" title="上一篇: 如何做到像360助手卸载之后跳转到指定网页">
+            <a  href="/2017/01/07/java内存泄漏分析/" title="上一篇: java内存泄漏分析">
                 <i class="fa fa-angle-left"></i>
             </a>
         
         <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
         
-            <a  href="/2017/02/07/一分钟学会markdown/" title="下一篇: 一分钟学会markdown">
+            <a  href="/2017/01/05/MarkDown的使用/" title="下一篇: MarkDown的使用">
                 <i class="fa fa-angle-right"></i>
             </a>
         
     </div>
-    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2017/02/08/如何做到像360助手卸载之后跳转到指定网页/">如何做到像360助手卸载之后跳转到指定网页</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/07/java内存泄漏分析/">java内存泄漏分析</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/07/一分钟学会markdown/">一分钟学会markdown</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/01/08/java线程池原理/">java线程池原理</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/01/05/MarkDown的使用/">MarkDown的使用</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/01/04/sublimeText3注册码/">sublimeText3注册码</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/01/02/hello-world/">Hello World</a></li></ul>
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2017/01/09/java线程池原理/">java线程池原理</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/01/08/如何做到像360助手卸载之后跳转到指定网页/">如何做到像360助手卸载之后跳转到指定网页</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/01/07/java内存泄漏分析/">java内存泄漏分析</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/01/07/一分钟学会markdown/">一分钟学会markdown</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/01/05/MarkDown的使用/">MarkDown的使用</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/01/04/sublimeText3注册码/">sublimeText3注册码</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/01/02/hello-world/">Hello World</a></li></ul>
     <script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
     <script>
         $(".post-list").addClass("toc-article");
