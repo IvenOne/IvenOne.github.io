@@ -144,6 +144,194 @@
 </nav>
       <div class="body-wrap">
   
+    <article id="post-java-泛型详解" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a  href="/2017/10/11/java-泛型详解/" class="article-date">
+      <time datetime="2017-10-11T09:23:01.000Z" itemprop="datePublished">2017-10-11</time>
+</a>
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a  class="article-title" href="/2017/10/11/java-泛型详解/">java 泛型详解</a>
+    </h1>
+  
+
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <p>泛型详情请参考：<a href="http://docs.oracle.com/javase/tutorial/extra/generics/intro.html" target="_blank" rel="external">没毛病的权威泛型讲解</a></p>
+<p>其他甲骨文请参考：<a href="http://docs.oracle.com" target="_blank" rel="external">甲骨文老铁</a></p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java-泛型-详解/">java 泛型 详解</a></li></ul>
+    </div>
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-Charles一分钟学会使用" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a  href="/2017/02/14/Charles一分钟学会使用/" class="article-date">
+      <time datetime="2017-02-14T14:54:07.000Z" itemprop="datePublished">2017-02-14</time>
+</a>
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a  class="article-title" href="/2017/02/14/Charles一分钟学会使用/">Charles一分钟学会使用</a>
+    </h1>
+  
+
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <p>##简介</p>
+<p>Charles 网络数据包截取工具。在移动开发时的利器，在mac OS 中推荐使用，windows 可以考虑fiddle.  Charles<a href="https://pan.baidu.com/s/1kVadqj9" target="_blank" rel="external">最新破解版下载</a></p>
+<p>##功能</p>
+<blockquote>
+<ol>
+<li>截取数据包 http and https</li>
+<li>重发请求</li>
+<li>修改请求参数</li>
+<li>修改返回数据</li>
+<li>模拟网速</li>
+</ol>
+</blockquote>
+<h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><ol>
+<li><p>设置代理，如图</p>
+<ul>
+<li><p>设置成mac的</p>
+<p><img src="../img/2.png" alt="mac"></p>
+</li>
+<li><p>设置成移动端的</p>
+<p><img src="../img/1.png" alt="mobile"></p>
+</li>
+<li><p>设置成移动端时需要设置手机网络，两个客户端需要在同一局域网内。而且手机端需要把电脑端设置成代理。那么就得需要电脑端的ip地址以及端口号。获取电脑端的ip:</p>
+<p><img src="../img/4.png" alt="ip"></p>
+<p>如果需要获取https的包，那么需要安装证书，如图：</p>
+<p><img src="../img/3.png" alt="ca"></p>
+<p>然后点击上图中的：Install Charles root Certificate on a Mobile Device or Remote Browser…</p>
+<p>最后在手机中输入下图网址：</p>
+<p><img src="../img/7.png" alt="mobileIp"></p>
+</li>
+</ul>
+<p>大功告成，现在可以使用了。</p>
+</li>
+<li><p>使用</p>
+<p>可以在Structure和Sequence视图之间进行切换。</p>
+<p>使用时一定要注意必须在<strong><em>record</em></strong>的状态下,否则不会有任何抓取功能。</p>
+<ul>
+<li><p>使用repeat功能 （repeat advance）</p>
+<p><img src="../img/6.png" alt=""></p>
+<p>此功能可以用来重复发送请求</p>
+</li>
+<li><p>修改网络请求</p>
+<p>选中抓取的连接右击，点击Edit,即可</p>
+<p>当然可以选择cancel进行撤销，以及revert进行还原</p>
+</li>
+<li><p>使用throttling进行网速测试</p>
+<p>方法：proxy—&gt;throttle setting ——&gt; 设置网速进行添加。</p>
+</li>
+<li><p>修改返回数据</p>
+<blockquote>
+<p>修改返回数据有几种方式：</p>
+<ol>
+<li>Map 功能适合长期地将某一些请求重定向到另一个网络地址或本地文件。</li>
+<li>Rewrite 功能适合对网络请求进行一些正则替换。</li>
+<li>Breakpoints 功能适合做一些临时性的修改。</li>
+</ol>
+</blockquote>
+<p>在这里我们说下经常使用的breakpoint功能。</p>
+<p><img src="../img/5.png" alt="breakpoint"></p>
+<p>方法是双击要break的连接，然后单击breakpoints，在运行一次此连接就可以调试了，时间不能太久否则会出现timeout提示。另外一点可以在setting中设置只在request 中或者response中or Both of them使用 调试。最后点击execute就OK了。</p>
+</li>
+</ul>
+</li>
+</ol>
+<p>##感谢观看，写的不对的地方请留言指正，谢谢~</p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/charles-使用-抓包/">charles 使用 抓包</a></li></ul>
+    </div>
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+
+
+  
     <article id="post-java线程池原理" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
