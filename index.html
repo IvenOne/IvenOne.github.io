@@ -477,6 +477,169 @@
 
 
   
+    <article id="post-android 自定义View1" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a  href="/2017/01/30/android 自定义View1/" class="article-date">
+      <time datetime="2017-01-30T09:33:16.000Z" itemprop="datePublished">2017-01-30</time>
+</a>
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a  class="article-title" href="/2017/01/30/android 自定义View1/">android自定义View1</a>
+    </h1>
+  
+
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <pre><code>   1.继承View 有四个构造函数：
+
+           View(Context context)  //Context 构造时使用
+           View(Context context, @Nullable AttributeSet attrs) //xml 中使用
+           View(Context context, @Nullable AttributeSet attrs, int defStyleAttr) //第二个构造函数调用
+           View(Context context, @Nullable AttributeSet attrs, int defStyleAttr, int defStyleRes)   //第三个构造函数调用在21时使用
+
+
+           定义元素属性时可以用到的地方：
+                   1.xml
+                   2.style
+                   3.theme
+                   4.参数defstyleAttr
+                   5.defStyleRes
+
+               上述说白了就是只定义在xml 与 style 中，因为 theme,defstyleAttr,defStyleRes 都是在style 中定义的
+
+           在xml 中首先需要声明属性name,格式如下：
+
+           新建 attrs.xml：
+               &lt;resources&gt;
+                       &lt;declare-styleable name=&quot;自定义一个名称一般使用自定义类名&quot;&gt;
+                           &lt;attr name=&quot;attr1&quot; format=&quot;string&quot;/&gt;
+                           &lt;attr name=&quot;attr2&quot; format=&quot;string&quot;/&gt;
+                       &lt;/declare-styleable&gt;
+                       &lt;attr name=&quot;outsideA&quot; format=&quot;reference&quot;/&gt;
+               &lt;/resources&gt;
+             声明在attrs中所有的属性就可以在自定义view中使用了，上面声明属性中有个不同，一个在declare-styleable中一个在外面，两个的区
+             别是：在outside属性不会再R.styleable的内部类中声称对应的变量，且在declare-styleable中的生成的内部类styleable的变量是类名_属性的形式存在的。比如 cutomize_attr1
+
+             上面的基础打完后就可以在style中进行属性的赋值操作，如下：
+                 在style中进行操作：
+
+                      &lt;style name=&quot;AppThemeLocal&quot; parent=&quot;Theme.AppCompat.Light.DarkActionBar&quot;&gt;
+    &lt;!-- Customize your theme here. --&gt;
+    &lt;item name=&quot;colorPrimary&quot;&gt;@color/colorPrimary&lt;/item&gt;
+    &lt;item name=&quot;colorPrimaryDark&quot;&gt;@color/colorPrimaryDark&lt;/item&gt;
+    &lt;item name=&quot;colorAccent&quot;&gt;@color/colorAccent&lt;/item&gt;
+&lt;/style&gt;
+
+&lt;style name=&quot;AppTheme&quot; parent=&quot;AppThemeLocal&quot;&gt;
+    &lt;item name=&quot;attr_one&quot;&gt;attr_1_from theme&lt;/item&gt;
+    &lt;item name=&quot;attr_two&quot;&gt;attr_2_from theme&lt;/item&gt;
+    &lt;item name=&quot;attr_three&quot;&gt;attr_3_from theme&lt;/item&gt;
+    &lt;item name=&quot;attr_four&quot;&gt;attr_4_from_theme&lt;/item&gt;
+&lt;/style&gt;
+
+&lt;style name=&quot;CustomizeStyleInTheme&quot;&gt;
+    &lt;item name=&quot;attr_one&quot;&gt;attr_1_from_reference&lt;/item&gt;
+    &lt;item name=&quot;attr_two&quot;&gt;attr_2_from_reference&lt;/item&gt;
+    &lt;item name=&quot;attr_three&quot;&gt;attr_3_from reference&lt;/item&gt;
+&lt;/style&gt;
+
+&lt;style name=&quot;throughStyle&quot;&gt;
+    &lt;item name=&quot;attr_one&quot;&gt;attr_1_from_style&lt;/item&gt;
+    &lt;item name=&quot;attr_two&quot;&gt;attr_2_from_style&lt;/item&gt;
+&lt;/style&gt;
+
+&lt;style name=&quot;DefaultCustomizeStyle&quot;&gt;
+    &lt;item name=&quot;CustomizeStyle&quot;&gt;@style/CustomizeStyleInTheme&lt;/item&gt;
+    &lt;item name=&quot;attr_one&quot;&gt;attr_1_from_default_style&lt;/item&gt;
+    &lt;item name=&quot;attr_two&quot;&gt;attr_2_from_default_style&lt;/item&gt;
+    &lt;item name=&quot;attr_three&quot;&gt;attr_3_from default_style&lt;/item&gt;
+&lt;/style&gt;
+
+    可以看到有好多处地方属性值冲突了，待会我们讲一下优先级。
+
+
+ 定义完之后就可以在布局xml 中进行使用了：
+
+      &lt;Linearlayout
+          .....
+         xmln:my=&quot;http://schemas.android.com/apk/res-auto&quot;
+         .....
+         &gt;
+         &lt;com.myself.view
+         ...
+         my:attr1=&quot;test in xml&quot;
+         style=&quot;@style/throughStyle&quot;
+         ....
+         /&gt;
+      &lt;/linearlayout&gt;
+
+
+ 在xml 中定义完之后我们就可以在自定义view 中进行获取设定的值了，如下：
+
+     public CustomTextView(Context context, AttributeSet attrs, int defStyle) {
+    super(context, attrs, defStyle);
+    TypedArray a = context.obtainStyledAttributes(attrs,R.styleable.Customize,defStyle,R.style.DefaultCustomizeStyle);
+    String one = a.getString(R.styleable.Customize_attr_one);
+    String two = a.getString(R.styleable.Customize_attr_two);
+    String three = a.getString(R.styleable.Customize_attr_three);
+    String four = a.getString(R.styleable.Customize_attr_four);
+    Log.i(TAG, &quot;one:&quot; + one);
+    Log.i(TAG, &quot;two:&quot; + two);
+    Log.i(TAG, &quot;three:&quot; + three);
+    Log.i(TAG, &quot;four:&quot; + four);
+    a.recycle();
+}
+
+
+最后获得的结论就是：xml&gt;style&gt;Theme中的默认Sytle&gt;默认Style（通过obtainStyledAttributes的第四个参数指定）&gt;在Theme中直接指定属性值
+</code></pre>
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/自定义view/">自定义view</a></li></ul>
+    </div>
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+
+
+  
     <article id="post-java线程池原理" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
@@ -1147,76 +1310,6 @@ This is [an example](http://www.baidu.com) inline link.
       
     <div class="article-tag tagcloud">
         <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/sublime3413注册码/">sublime3413注册码</a></li></ul>
-    </div>
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-hello-world" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a  href="/2017/01/02/hello-world/" class="article-date">
-      <time datetime="2017-01-02T04:33:55.000Z" itemprop="datePublished">2017-01-02</time>
-</a>
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a  class="article-title" href="/2017/01/02/hello-world/">Hello World</a>
-    </h1>
-  
-
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new <span class="string">"My New Post"</span></div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo server</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo generate</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo deploy</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
-
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/安窝/">安窝</a></li></ul>
     </div>
 
       
