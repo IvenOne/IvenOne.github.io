@@ -7,19 +7,19 @@
   
   
   
-  <title>Hello World | Iven&#39;s Blog</title>
+  <title>安卓自定义view2 | Iven&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
-<meta name="keywords" content="安窝">
+  <meta name="description" content="基础知识： 1.    屏幕的左上角为坐标原点     向右为x轴增大方向     向下为y轴增大方向  2.    view的位置由4个顶点决定top,left,bottom,right(View的位置是相对于父控件而言的)      Top:子View上边界到父View上边界的距离     Left:子View左边界到父View左边界的距离     Bottom:子View下边界距离父View">
+<meta name="keywords" content="自定义view">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hello World">
-<meta property="og:url" content="http://ivenOne.github.io/2017/01/02/hello-world/index.html">
+<meta property="og:title" content="安卓自定义view2">
+<meta property="og:url" content="http://ivenOne.github.io/2017/01/31/安卓自定义view2/index.html">
 <meta property="og:site_name" content="Iven&#39;s Blog">
-<meta property="og:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
-<meta property="og:updated_time" content="2017-10-01T16:38:24.000Z">
+<meta property="og:description" content="基础知识： 1.    屏幕的左上角为坐标原点     向右为x轴增大方向     向下为y轴增大方向  2.    view的位置由4个顶点决定top,left,bottom,right(View的位置是相对于父控件而言的)      Top:子View上边界到父View上边界的距离     Left:子View左边界到父View左边界的距离     Bottom:子View下边界距离父View">
+<meta property="og:updated_time" content="2017-10-31T10:28:29.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hello World">
-<meta name="twitter:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
+<meta name="twitter:title" content="安卓自定义view2">
+<meta name="twitter:description" content="基础知识： 1.    屏幕的左上角为坐标原点     向右为x轴增大方向     向下为y轴增大方向  2.    view的位置由4个顶点决定top,left,bottom,right(View的位置是相对于父控件而言的)      Top:子View上边界到父View上边界的距离     Left:子View左边界到父View左边界的距离     Bottom:子View下边界距离父View">
   
     <link rel="alternative" href="/atom.xml" title="Iven&#39;s Blog" type="application/atom+xml">
   
@@ -141,11 +141,11 @@
         </header>                
     </div>
 </nav>
-      <div class="body-wrap"><article id="post-hello-world" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-安卓自定义view2" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a  href="/2017/01/02/hello-world/" class="article-date">
-      <time datetime="2017-01-02T04:33:55.000Z" itemprop="datePublished">2017-01-02</time>
+      <a  href="/2017/01/31/安卓自定义view2/" class="article-date">
+      <time datetime="2017-01-31T08:30:46.000Z" itemprop="datePublished">2017-01-31</time>
 </a>
 
     </div>
@@ -159,7 +159,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      Hello World
+      安卓自定义view2
     </h1>
   
 
@@ -171,7 +171,7 @@
 
         
     <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/安窝/">安窝</a></li></ul>
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/自定义view/">自定义view</a></li></ul>
     </div>
 
         <div class="clearfix"></div>
@@ -181,16 +181,93 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new <span class="string">"My New Post"</span></div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo server</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo generate</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo deploy</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
+        <p>基础知识：</p>
+<pre><code>1.    屏幕的左上角为坐标原点
+    向右为x轴增大方向
+    向下为y轴增大方向
 
+2.    view的位置由4个顶点决定top,left,bottom,right(View的位置是相对于父控件而言的)
+
+    Top:子View上边界到父View上边界的距离
+    Left:子View左边界到父View左边界的距离
+    Bottom:子View下边界距离父View上边界的距离
+    Right：子View右边界距离父View左边界的距离
+
+3. 获取方式：getTop.....
+
+        MotionEvente中get()和getRaw的区别
+            getX（）是相对于所在组件坐标系中的坐标
+            getRawX（）是相对于屏幕默认坐标系的坐标
+</code></pre><p>Measure 过程：<br>​<br>            预备知识： 1.ViewGroup.LayoutParams(布局参数)<br>                      2.MeasureSpecs 类（父视图对子视图的测量要求）</p>
+<pre><code>              1.1 LayoutParams: 具体值；match_parent;wrap_content
+              2.1 MeasureSpecs= mode(高2位即：31；32位) + size(具体测量大小，30位)
+                            mode分为3种：
+                                        UNSPECIFIED
+
+                                        EXACTLY:     match_parent 与 具体数值
+
+                                        AT_MOST：  wrap_content
+
+
+            2.2： 如何获得MeasureSpecs
+
+                View自身的LayoutParams 
+                        与                   决定了 MesureSpec  -------&gt; View最终的宽/高
+                 父容器的MeasureSpec
+
+                 依据： 源码：getChildMeasureSpec()
+
+
+                 规律： 
+                         当子view布局参数设置了具体数值的时候，那么无论父容器的mode是什么，子View的mode一定是exactly+设置大小当子view布局参数为match_parent,那么父容器设置的mode是什么，子View的mode就是什么
+                         当子view布局参数为wrap_content时，那么父容器设置除了unspecified,mode为unspecified外，其余父容器设置的任何mode,子view的mode 始终未AT_MOST
+
+过程：
+            单一view的measure 过程：
+
+
+            measure-----&gt; onMeasure-----&gt;setMeasureDimension-----&gt;getDefaultSize-----&gt;完成测量
+
+
+
+            viewGroup的measure过程：
+
+            measureChildren-----&gt;measureChild-----&gt;getChildMeasureSpec-----&gt;measure-----&gt;onMeasure-----&gt;setMeasureDimension
+</code></pre><p>Layout过程：<br>            作用：确定View的top,left,bottom,right</p>
+<pre><code>layout 的过程：
+
+        单一View的layout过程：
+
+            layout-----&gt;onlayout（空实现）-----&gt;完成计算
+
+        ViewGroup的layout过程
+
+            layout-----&gt;onlayout-----&gt;遍历子View调用layout与onLayout-----&gt;完成计算
+
+
+一个注意点：
+        getMeasureWidth()/getMeasureHeight()《一》  与 getWidth()/getHeight()  的区别：《二》
+
+            1.赋值时间： 《一》是在measure过程中  《二》是在layout过程中
+
+            2.赋值方式： 《一》setMeasureDimension 《二》是在layout中传递四个参数之后
+
+            3.大小，一般情况下相等
+
+            4.应用场景： 在onlayout中使用 getMeasure方法，其他地方使用getWidth。。方法
+</code></pre><p>Draw 过程：<br>            作用：绘制view视图</p>
+<pre><code>draw的过程：
+
+        单一View的draw过程：
+
+        draw----&gt;drawBackground----&gt;onDraw----&gt;dispatchDraw----&gt;onDrawScrollBars
+
+
+        ViewGrouo的draw过程：
+
+
+        draw----&gt;drawBackgrond----&gt;onDraw----&gt;dispatchDraw----&gt;遍历子View调用draw&amp;drawBackground&amp;onDraw&amp;dispatchDraw&amp;onDrawScrollBars----&gt;onDrawScrollBars
+</code></pre>
       
     </div>
     
@@ -198,13 +275,13 @@
   
     
     <div class="copyright">
-        <p><span>本文标题:</span><a  href="/2017/01/02/hello-world/">Hello World</a></p>
+        <p><span>本文标题:</span><a  href="/2017/01/31/安卓自定义view2/">安卓自定义view2</a></p>
         <p><span>文章作者:</span><a  href="/" title="访问 Iven Wan 的个人博客">Iven Wan</a></p>
-        <p><span>发布时间:</span>2017年01月02日 - 12时33分</p>
-       <!-- <p><span>最后更新:</span>2017年10月02日 - 00时38分</p> -->
+        <p><span>发布时间:</span>2017年01月31日 - 16时30分</p>
+       <!-- <p><span>最后更新:</span>2017年10月31日 - 18时28分</p> -->
         <p>
-            <span>原始链接:</span><a class="post-url" href="/2017/01/02/hello-world/" title="Hello World">http://ivenOne.github.io/2017/01/02/hello-world/</a>
-            <span class="copy-path" data-clipboard-text="原文: http://ivenOne.github.io/2017/01/02/hello-world/　　作者: Iven Wan" title=""></span>
+            <span>原始链接:</span><a class="post-url" href="/2017/01/31/安卓自定义view2/" title="安卓自定义view2">http://ivenOne.github.io/2017/01/31/安卓自定义view2/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://ivenOne.github.io/2017/01/31/安卓自定义view2/　　作者: Iven Wan" title=""></span>
         </p>
         <p>
             <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" title="中国大陆 (CC BY-NC-SA 3.0 CN)" target = "_blank">"署名-非商用-相同方式共享 3.0"</a> 转载请保留原文链接及作者。
@@ -215,18 +292,18 @@
 
 <nav id="article-nav">
   
-    <a  href="/2017/01/04/sublimeText3注册码/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a  href="/2017/02/14/Charles一分钟学会使用/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption"><</strong>
       <div class="article-nav-title">
         
-          sublimeText3注册码
+          Charles一分钟学会使用
         
       </div>
     </a>
   
   
-    <a  href="/2016/05/01/gitUse/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">git笔记</div>
+    <a  href="/2017/01/09/java线程池原理/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">java线程池原理</div>
       <strong class="article-nav-caption">></strong>
     </a>
   
@@ -239,7 +316,7 @@
     <!--
 <div id="toc" class="toc-article">
     <strong class="toc-title">文章目录</strong>
-    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Quick-Start"><span class="toc-number">1.</span> <span class="toc-text">Quick Start</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Create-a-new-post"><span class="toc-number">1.1.</span> <span class="toc-text">Create a new post</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Run-server"><span class="toc-number">1.2.</span> <span class="toc-text">Run server</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Generate-static-files"><span class="toc-number">1.3.</span> <span class="toc-text">Generate static files</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Deploy-to-remote-sites"><span class="toc-number">1.4.</span> <span class="toc-text">Deploy to remote sites</span></a></li></ol></li></ol>
+    
 </div>
 -->
 <style>
@@ -300,13 +377,13 @@
 
     <div class="scroll" id="post-nav-button">
         
-            <a  href="/2017/01/04/sublimeText3注册码/" title="上一篇: sublimeText3注册码">
+            <a  href="/2017/02/14/Charles一分钟学会使用/" title="上一篇: Charles一分钟学会使用">
                 <i class="fa fa-angle-left"></i>
             </a>
         
         <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
         
-            <a  href="/2016/05/01/gitUse/" title="下一篇: git笔记">
+            <a  href="/2017/01/09/java线程池原理/" title="下一篇: java线程池原理">
                 <i class="fa fa-angle-right"></i>
             </a>
         
